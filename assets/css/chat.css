@@ -1,0 +1,147 @@
+/* ============================================================
+   delt.io chat (delta7) — UI styles
+   DOM is built by chat.js. Do not add legacy #chat-container,
+   #chatroom or #message rules here.
+   ============================================================ */
+
+.chat-container {
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  width: 360px;
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Ubuntu', 'Segoe UI', system-ui, sans-serif;
+  font-size: 13px;
+  color: #e8e8e8;
+  z-index: 50;
+  pointer-events: none;
+  user-select: none;
+  background: linear-gradient(180deg, rgba(10,12,18,0.0) 0%, rgba(10,12,18,0.35) 60%, rgba(10,12,18,0.55) 100%);
+  border-radius: 10px;
+  padding: 6px;
+  box-sizing: border-box;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.chat-resize-handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  cursor: nwse-resize;
+  background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0) 60%);
+  border-top-left-radius: 10px;
+  pointer-events: auto;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.chat-container:hover .chat-resize-handle { opacity: 0.6; }
+
+.chat-messages {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+  padding: 6px 8px;
+  scrollbar-width: none;
+}
+.chat-messages::-webkit-scrollbar { display: none; }
+
+.chat-message-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+  line-height: 1.35;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.85);
+  word-break: break-word;
+  animation: chat-fade-in 0.18s ease-out;
+}
+
+@keyframes chat-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.chat-message-row .chat-time {
+  color: rgba(255,255,255,0.45);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.chat-message-row .chat-nick {
+  color: #4fecff;
+  font-weight: 700;
+}
+
+.chat-message-row .chat-text {
+  color: #f1f1f1;
+}
+
+.chat-message-row.cmd .chat-nick { color: #ffd166; }
+.chat-message-row.cmd .chat-text { color: #ffd9a3; font-style: italic; }
+
+.chat-input-container {
+  position: relative;
+  margin-top: 6px;
+  padding: 6px 8px;
+  background: rgba(0,0,0,0.45);
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.chat-input-container.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  border-color: rgba(79,236,255,0.45);
+  box-shadow: 0 0 0 1px rgba(79,236,255,0.15), 0 4px 18px rgba(0,0,0,0.35);
+}
+
+.chat-input-field {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font: inherit;
+  padding: 4px 2px;
+  caret-color: #4fecff;
+}
+
+.chat-input-field::placeholder { color: rgba(255,255,255,0.4); }
+
+.emoji-toggle {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.08);
+}
+
+.emoji-picker {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 6px);
+  min-width: 180px;
+  padding: 6px;
+  background: rgba(10,12,18,0.92);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  display: none;
+}
+.emoji-picker.open { display: flex; flex-wrap: wrap; gap: 4px; }
